@@ -10,8 +10,6 @@ public class test {
 		
 		System.out.println(Calendar.getInstance().getTimeInMillis());
 
-		
-		
 
 	}
 
