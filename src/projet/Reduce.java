@@ -40,15 +40,17 @@ public class Reduce implements Runnable {
 		for (Map m : this.listMap) {
 			this.add(m.getMapping());
 		}
+		long processingTime = Calendar.getInstance().getTimeInMillis()-strt;
 		String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(Calendar.getInstance().getTime());
-		this.log.write("Start : " + start);
-		this.log.write("End : " + timeStamp);
-		this.log.write("Processing time : " + (Calendar.getInstance().getTimeInMillis()-strt));
 		try {
 			this.writeAndDisplayMap();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		this.log.write("Start : " + start);
+		this.log.write("End   : " + timeStamp);
+		this.log.write("Processing time : " + processingTime);
 	}
 	
 	public void add(HashMap<String, Integer> mapping) {
