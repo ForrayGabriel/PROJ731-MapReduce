@@ -4,7 +4,7 @@ This goal of this project is to create Map-Reduce mecanisme in Java.
 
 The program takes a big text file as an input, parse it and share it between multiple Map threads, each one counting the number of time each word appears, then giving its result to some Reduce threads merging all the result from the Maps
 
-## V1 - Working with a boolean with multiple maps and one reduce
+## v1.0 - Working with a boolean with multiple maps and one reduce
 
 **First working version of the project**
 
