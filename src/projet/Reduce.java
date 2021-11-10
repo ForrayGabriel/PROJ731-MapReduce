@@ -37,7 +37,7 @@ public class Reduce {
 			String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(Calendar.getInstance().getTime());
 			System.out.println("Start : " + start);
 			System.out.println("End : " + timeStamp);
-			System.out.println("Ecart : " + (Calendar.getInstance().getTimeInMillis()-strt));
+			System.out.println("Processing time : " + (Calendar.getInstance().getTimeInMillis()-strt));
 		}
 	}
 	
