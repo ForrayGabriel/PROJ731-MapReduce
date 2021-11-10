@@ -12,25 +12,28 @@ public class Map implements Runnable {
 	private List<String> words_list;
 	private Reduce reduce;
 	private int num;
+	private HashMap<String, Integer> mapping;
 
 	public Map(List<String> words_list, Reduce reduce, int num) {
 		super();
 		this.words_list = words_list;
 		this.reduce = reduce;
 		this.num = num;
+		this.mapping = new HashMap<String, Integer>();
+	}
+
+	public HashMap<String, Integer> getMapping() {
+		return mapping;
 	}
 
 	public void run() {
 		
-		Logger logger = Logger.getInstance();
+		Logger log = Logger.getInstance();
 		
-		
-		System.out.println("Salut je run");
-
-		HashMap<String, Integer> mapping = new HashMap<String, Integer>();
+		log.write("Salut je run");
 
 		for (String word : words_list) {
-			//System.out.println(num + " - " + word);
+			//log.write(num + " - " + word);
 			if (mapping.get(word) == null) {
 				mapping.put(word, 1);
 			}
@@ -39,18 +42,9 @@ public class Map implements Runnable {
 			}
 		}
 		
-		while (reduce.take() == false) {
-			try {
-				System.out.println("Déjà utilisé, je sleep");
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		System.out.println(num + " - " + mapping);
-		reduce.add(mapping);
-		reduce.free();
+		log.write(num + " - " + mapping);
+		
+		reduce.addMap(this);
 
 	}
 
