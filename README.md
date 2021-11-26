@@ -14,8 +14,8 @@ In this version :
 - When they finish, they send their results as a hashmap to the reducer
 - The reducer merge the hashmaps, write the result in a file and display stats
 
-
-
+_For now, the processing time changes a lot between tests on the same file, but we can see a slightly lower time when using more threads on big text files (at least 20 Mo)
+_Errors on memory can happend when using text files that are too big
 
 ## v2 - Reduce is now a thread and no more boolean
 
