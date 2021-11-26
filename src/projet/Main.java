@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +19,7 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) throws IOException {
+		
 		
 		Logger log = Logger.getInstance();
 		
@@ -30,28 +34,15 @@ public class Main {
 	    String nbMapThreadStr = myObj.nextLine();
 	    
 	    int nbMapThread = Integer.parseInt(nbMapThreadStr);
+	    
+	    String timeStart = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(Calendar.getInstance().getTime());
+		long millisStart = Calendar.getInstance().getTimeInMillis();
 
 	    log.write("Processing "+ fileName + " with " + nbMapThread + " threads...");
-	    
-		File file = new File(fileName+".txt");
+
+		String str = new String(Files.readAllBytes(Paths.get(fileName + ".txt")),
+                StandardCharsets.UTF_8);
 		
-		String str = "";
-		String st;
-
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(file));
-			try {
-				while ((st = br.readLine()) != null) {
-					str += st + " ";
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-
-
 		String[] words = str.split("\\P{L}+");
 		List<String> list = Arrays.asList(words);
 
@@ -66,7 +57,7 @@ public class Main {
 		List<String> temp_list = list.subList((nbMapThread - 1) * nb_words_per_machines, list.size());
 		arrays_per_machine.add(temp_list);
 		
-		Reduce reduce = new Reduce(nbMapThread, fileName);
+		Reduce reduce = new Reduce(nbMapThread, fileName, timeStart, millisStart);
 		
 		Thread r = new Thread(reduce);
 		r.start();

@@ -15,14 +15,18 @@ public class Reduce implements Runnable {
 	private int nb_machine = 0;
 	private String start;
 	private long strt;
+	private String middle;
+	private long middl;
 	private ArrayList<Map> listMap;
 	private String fileName;
 	private Logger log;
 	
-	public Reduce(int nb_machines, String fileName) {
+	public Reduce(int nb_machines, String fileName, String start, long strt) {
 		this.nb_machines_tot = nb_machines;
-		start = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(Calendar.getInstance().getTime());
-		strt = Calendar.getInstance().getTimeInMillis();
+		this.start = start;
+		this.strt = strt;
+		middle = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(Calendar.getInstance().getTime());
+		middl = Calendar.getInstance().getTimeInMillis();
 		this.listMap = new ArrayList<Map>();
 		this.fileName = fileName;
 		this.log = Logger.getInstance();
@@ -41,6 +45,7 @@ public class Reduce implements Runnable {
 			this.add(m.getMapping());
 		}
 		long processingTime = Calendar.getInstance().getTimeInMillis()-strt;
+		long processingTimeMapReduce = Calendar.getInstance().getTimeInMillis()-middl;
 		String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(Calendar.getInstance().getTime());
 		try {
 			this.writeAndDisplayMap();
@@ -48,9 +53,11 @@ public class Reduce implements Runnable {
 			e.printStackTrace();
 		}
 		
-		this.log.write("Start : " + start);
+		this.log.write("Reading start : " + start);
+		this.log.write("Map start : " + middle);
 		this.log.write("End   : " + timeStamp);
-		this.log.write("Processing time : " + processingTime);
+		this.log.write("Processing time with reading: " + processingTime + " ms");
+		this.log.write("Processing time without reading: " + processingTimeMapReduce + " ms");
 	}
 	
 	public void add(HashMap<String, Integer> mapping) {
