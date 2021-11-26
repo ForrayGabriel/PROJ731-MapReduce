@@ -18,15 +18,7 @@ public class Logger {
 	}
 
 	public void write(String str) {
-		try {
-			FileWriter myWriter = new FileWriter("filename.txt");
-			myWriter.write(str);
-			myWriter.close();
-			System.out.println("Successfully wrote to the file.");
-		} catch (IOException e) {
-			System.out.println("An error occurred.");
-			e.printStackTrace();
-		}
+		System.out.println(str);
 	}
 
 }
