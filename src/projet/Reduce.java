@@ -18,6 +18,7 @@ public class Reduce implements Runnable {
 	private String middle;
 	private long middl;
 	private ArrayList<Map> listMap;
+	private ArrayList<HashMap<String, Integer>> listHashMap;
 	private String fileName;
 	private Logger log;
 	
