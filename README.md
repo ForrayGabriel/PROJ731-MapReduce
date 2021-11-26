@@ -4,6 +4,19 @@ This goal of this project is to create Map-Reduce mecanisme in Java.
 
 The program takes a big text file as an input, parse it and share it between multiple Map threads, each one counting the number of time each word appears, then giving its result to some Reduce threads merging all the result from the Maps
 
+## v3 - New interface
+
+In this version :
+- When launched, the program will open a new window where you are invited to enter the number of threads you want to use and then drag and drop a text file.
+- The program will open and read the text file, split between every words, and create as many lists of words as you want threads
+- It will then create a reduce thread
+- Then create the desiered number of threads, give them each a list of words and launch them so they process in parallel
+- When they finish, they send their results as a hashmap to the reducer
+- The reducer merge the hashmaps, write the result in a file and display stats
+
+
+
+
 ## v2 - Reduce is now a thread and no more boolean
 
 This version can do the same as the previous one, but the Reduce is now a thread and the working pricinple is different
